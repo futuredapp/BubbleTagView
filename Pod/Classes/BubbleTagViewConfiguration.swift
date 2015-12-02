@@ -24,7 +24,6 @@ public class BubbleTagViewConfiguration {
     //Tag button background color
     public static var cellBackgroundColor = UIColor.oceanBlue()
     
-    //Tag button height
     
 }
 
