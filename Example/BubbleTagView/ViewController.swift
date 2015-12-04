@@ -9,18 +9,26 @@
 import UIKit
 import BubbleTagView
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, BubbleTagViewDelegate {
 
-    @IBOutlet weak var bubbleTagView: BubbleTagView!
+    @IBOutlet weak var bubbleTagView: BubbleTagView! 
    
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let items =  ["sport", "fashion", "party"]
-        bubbleTagView.setTags(items)
-        bubbleTagView.setHorizontalAlignment(.Left)
-        bubbleTagView.setCellCollor(UIColor.blackColor())
+        bubbleTagView.bubbleDelegate = self
+        bubbleTagView.setHorizontalAlignment(.Center)
+        bubbleTagView.cellColor = UIColor.greenColor()
+        bubbleTagView.cellBorderColor = UIColor.blueColor()
+        bubbleTagView.fontColor = UIColor.blueColor()
+
+        bubbleTagView.allowsMultipleSelection = true    
+        bubbleTagView.setTags(items)        
+
+
+        
     }
     
 
@@ -28,6 +36,13 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func bubbleTagView(bubbleTagView: BubbleTagView, didDeselectTagAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
+    func bubbleTagView(bubbleTagView: BubbleTagView, didSelectTagAtIndexPath indexPath: NSIndexPath) {
 
+    }
 }
 
