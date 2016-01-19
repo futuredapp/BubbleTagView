@@ -30,8 +30,8 @@ extension BubbleTagViewDelegate {
 
 
 public class BubbleTagView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
-
-
+    
+    
     public var bubbleDelegate : BubbleTagViewDelegate?
     var items:[String] =  []
     var hAlignment:FSQCollectionViewHorizontalAlignment = FSQCollectionViewHorizontalAlignment.Center
@@ -42,9 +42,9 @@ public class BubbleTagView: UICollectionView, UICollectionViewDelegate, UICollec
     public var fontColor:UIColor = BubbleTagViewConfiguration.cellFontColor
     public var cellBorderColor : UIColor?
     
-    public var selectedFont : UIFont?  
+    public var selectedFont : UIFont?
     public var selectedFontColor: UIColor?
-    public var selectedCellColor: UIColor? 
+    public var selectedCellColor: UIColor?
     public var selectedCellBorderColor : UIColor?
     public var insets : UIEdgeInsets? {
         
@@ -80,14 +80,16 @@ public class BubbleTagView: UICollectionView, UICollectionViewDelegate, UICollec
         
         self.dataSource = self
         self.delegate = self
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.mainScreen().scale
         
         self.backgroundColor = UIColor.clearColor()
     }
     
     // MARK: - Designable
     
-  /*  public override func prepareForInterfaceBuilder() {
-        self.setTags(["hashtag1", "hashtag2", "hashtag3"])
+    /*  public override func prepareForInterfaceBuilder() {
+    self.setTags(["hashtag1", "hashtag2", "hashtag3"])
     }*/
     
     //MARK: -public API
@@ -95,12 +97,12 @@ public class BubbleTagView: UICollectionView, UICollectionViewDelegate, UICollec
         
         self.items = []
         for tag in tags where tag != ""{
-                self.items.append("#\(tag)")
+            self.items.append("#\(tag)")
         }
         
         CATransaction.begin()
         CATransaction.setCompletionBlock { () -> Void in
-
+            
             self.invalidateIntrinsicContentSize({ () -> () in
                 self.setNeedsLayout()
                 self.layoutIfNeeded()
@@ -141,7 +143,7 @@ public class BubbleTagView: UICollectionView, UICollectionViewDelegate, UICollec
         self.sizingCell.setText(item)
         let size = self.sizingCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         let maximumWidth = CGRectGetWidth(collectionView.bounds)
-
+        
         
         return CGSizeMake(min(size.width, maximumWidth),  size.height)
     }
@@ -183,9 +185,9 @@ public class BubbleTagView: UICollectionView, UICollectionViewDelegate, UICollec
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TagCell", forIndexPath: indexPath) as! BubbleTagViewCell
-       
         
-    
+        
+        
         
         cell.notSelectedFont = font
         
@@ -213,8 +215,8 @@ public class BubbleTagView: UICollectionView, UICollectionViewDelegate, UICollec
         }
         
         cell.tagLabel.text = self.items[indexPath.row]
-
-
+        
+        
         return cell
     }
     
@@ -236,9 +238,9 @@ public class BubbleTagView: UICollectionView, UICollectionViewDelegate, UICollec
     
     public func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         
-                bubbleDelegate?.bubbleTagView(self, didDeselectTagAtIndexPath: indexPath)
+        bubbleDelegate?.bubbleTagView(self, didDeselectTagAtIndexPath: indexPath)
         
     }
-        
-
+    
+    
 }
